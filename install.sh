@@ -21,6 +21,7 @@ else
 fi
 echo "alias bitzero='BitZero/dlc/dlc'" >> ~/.bashrc
 source ~/.bashrc
-alias bitzero='BitZero/dlc/dlc'
 clear
-bitzero --help
+alias bitzero='BitZero/dlc/dlc'
+echo -e "Debe reiniciar la terminal\nPresione Enter para continuar..."
+read -p ">> " option
