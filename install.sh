@@ -2,24 +2,27 @@
 
 echo "Descargando recursos..."
 mkdir -p BitZero
-curl -o BitZero/dlc https://github.com/techdevazeland/BitZero-GNU-Linux/raw/main/assets/dlc
-
-echo "Otorgando permisos..."
-chmod +x BitZero/dlc
-
-read -p "Establezca WorkDir:\n[1]GNU/Linux\n[2]Termux/Android" option
+cd BitZero
+wget https://github.com/techdevazeland/BitZero-GNU-Linux/raw/main/dlc.zip dlc.zip
+unzip dlc.zip
+chmod +x ./dlc/dlc
+rm dlc.zip
+clear
+cd ../
+echo -e "Establezca WorkDir:\n[1]GNU/Linux\n[2]Termux/Android\n" 
+read -p ">> " option
 
 if [ "$option" == "1" ]; then
-  BitZero/dlc workdir BitZero/downloads
+  ./dlc/dlc workdir BitZero/downloads
 elif [ "$option" == "2" ]; then
-  BitZero/dlc workdir --android
+  ./dlc/dlc workdir --android
 else
-  echo "ESA NO ES UNA OPCIÓN"
+  ./dlc/dlc workdir BitZero/downloads
 fi
-
 echo "Generando BitZero/DLC"
-echo "alias bitzero='BitZero/dlc'" >> ~/.bashrc
+echo "alias bitzero='BitZero/dlc/dlc'" >> ~/.bashrc
 source ~/.bashrc
-
+alias bitzero='BitZero/dlc/dlc'
 echo "BITZERO INSTALADO"
+clear
 bitzero --help
