@@ -25,3 +25,4 @@ clear
 alias bitzero='BitZero/dlc/dlc'
 echo -e "Debe reiniciar la terminal\nPresione Enter para continuar..."
 read -p ">> " option
+exit
