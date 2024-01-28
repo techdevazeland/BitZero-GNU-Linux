@@ -19,10 +19,8 @@ elif [ "$option" == "2" ]; then
 else
   ./dlc/dlc workdir BitZero/downloads
 fi
-echo "Generando BitZero/DLC"
 echo "alias bitzero='BitZero/dlc/dlc'" >> ~/.bashrc
 source ~/.bashrc
 alias bitzero='BitZero/dlc/dlc'
-echo "BITZERO INSTALADO"
 clear
 bitzero --help
