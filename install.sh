@@ -3,7 +3,7 @@
 echo "INSTALANDO"
 cd ~
 mkdir -p BitZero
-https://github.com/techdevazeland/BitZero-GNU-Linux/raw/main/dlc.bin
+wget https://github.com/techdevazeland/BitZero-GNU-Linux/raw/main/dlc.bin
 chmod +x ./dlc.bin
 clear
 echo -e "Establezca WorkDir:\n[1]GNU/Linux\n[2]Termux/Android\n" 
