@@ -1,28 +1,24 @@
 #!/bin/bash
 
-echo "Descargando recursos..."
+echo "INSTALANDO"
+cd ~
 mkdir -p BitZero
-cd BitZero
-wget https://github.com/techdevazeland/BitZero-GNU-Linux/raw/main/dlc.zip dlc.zip
-unzip dlc.zip
-chmod +x ./dlc/dlc
-rm dlc.zip
+https://github.com/techdevazeland/BitZero-GNU-Linux/raw/main/dlc.bin
+chmod +x ./dlc.bin
 clear
-cd ../
 echo -e "Establezca WorkDir:\n[1]GNU/Linux\n[2]Termux/Android\n" 
 read -p ">> " option
 
 if [ "$option" == "1" ]; then
-  ./dlc/dlc workdir BitZero/downloads
+  ~/dlc.bin workdir BitZero/downloads
 elif [ "$option" == "2" ]; then
-  ./dlc/dlc workdir --android
+  ~/dlc.bin workdir --android
 else
-  ./dlc/dlc workdir BitZero/downloads
+  ./dlc.bin workdir BitZero/downloads
 fi
-echo "alias bitzero='BitZero/dlc/dlc'" >> ~/.bashrc
+echo "alias bitzero='~/dlc.bin'" >> ~/.bashrc
 source ~/.bashrc
 clear
-alias bitzero='BitZero/dlc/dlc'
-echo -e "Debe reiniciar la terminal\nPresione Enter para continuar..."
-read -p ">> " option
-exit
+alias bitzero='~/dlc.bin'
+clear
+echo "INSTALACIÓN COMPLETADA\n    -- bitzero help"
