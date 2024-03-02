@@ -125,7 +125,7 @@ for url in urls:
 print("\n")
 with open(directory+"/"+named, "wb") as file:
     for f in files:
-        file.write(open(f, "rb").read().replace(b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x02\x00\x00\x00\x90wS\xde\x00\x00\x00\x0cIDATx\x9cc```\x00\x00\x00\x04\x00\x01\xf6\x178U\x00\x00\x00\x00IEND\xaeB`\x82',b''))
+        file.write(open(f, "rb").read().replace(b"<html><bytes>",b''))
         os.unlink(f)
 clear_console()
 print("\033[32mGUARDADO:\033[0m"+directory+"/"+named)
