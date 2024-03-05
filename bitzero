@@ -44,13 +44,22 @@ def download(url, name, up, total_size):
     except:
         print("\n  \033[31m\033[1m|\033[0m\033[41m\033[30m\033[1m + ERROR - CONEXIÓN PERDIDA + \033[0m")
         sys.exit()
-if not os.path.exists("BitZero"):
-    os.mkdir("BitZero")
-    directory = "./BitZero"
-if os.path.exists("./BitZero/path"):
-    directory = open("./BitZero/path","r").read()
-    if not os.path.exists(directory):
-        os.mkdir(directory)
+if not os.path.exists("BitZero_cache"):
+    os.mkdir("BitZero_cache")
+    directory = "./BitZero_cache"
+if os.path.exists("./BitZero_cache/path"):
+    directory = open("./BitZero_cache/path","r").read()
+else:
+    open("./BitZero_cache/path","w").write("./")
+if os.path.exists("./BitZero_cache/account"):
+    account = open("./BitZero_cache/account","r").read()
+else:
+    open("./BitZero_cache/account","w").write(' '.join([host,repo,username,password]))
+account = open("./BitZero_cache/account","r").read().split(" ")
+host = account[0]
+repo = account[1]
+username = account[2]
+password = account[3]
 clear_console()
 url = sys.argv[1]
 url = url.replace(" ","_")
@@ -75,13 +84,20 @@ if url == "help" or url == "h" or url == "--help" or url == "-h":
     print("\033[1m     -CAMBIAR DIRECTORIO DE DESCARGA")
     print("      $ \033[32mbitzero\033[0m \033[1mworkdir ./mydir\n      $ \033[32mbitzero\033[0m \033[1mworkdir --android\n")
     sys.exit()
+if url == "account":
+    host = sys.argv[2]
+    repo = sys.argv[3]
+    username = sys.argv[4]
+    password = sys.argv[5]
+    open("./BitZero_cache/account","w").write(' '.join([host,repo,username,password]))
+    print("Cambiado")
 if url == "workdir":
     workdir = sys.argv[2]
     if workdir == "--android":
-        open("./BitZero/path","w").write("/storage/emulated/0/BitZero")
+        open("./BitZero_cache/path","w").write("/storage/emulated/0/BitZero")
         workdir = "/storage/emulated/0/BitZero"
     else:
-        open("./BitZero/path","w").write(workdir)
+        open("./BitZero_cache/path","w").write(workdir)
     print("\033[1mWorkDir: \033[0m"+workdir)
     sys.exit()
 if not "https://bitzero.techdev.cu/" in url:
