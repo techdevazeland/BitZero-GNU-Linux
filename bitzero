@@ -5,6 +5,7 @@ import os
 import random
 import time
 import urllib3
+import base64
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 totaldown = 0
 timed = 0
@@ -91,6 +92,7 @@ if url == "account":
     password = sys.argv[5]
     open("./BitZero_cache/account","w").write(' '.join([host,repo,username,password]))
     print("Cambiado")
+    sys.exit()
 if url == "workdir":
     workdir = sys.argv[2]
     if workdir == "--android":
@@ -105,8 +107,9 @@ if not "https://bitzero.techdev.cu/" in url:
     sys.exit()
 print("  \033[1m\033[33m|\033[30m\033[43m + PREPARANDO + \033[0m")
 named = url.split("/")[-1]
-surl = url.split("/")[-2]
-k = url.split("/")[-3]
+surl = url.split("/")[-3]
+bitzero = url.split("/")[-2]
+k = url.split("/")[-4]
 size = k.split("-")[0]
 ide = k.split("-")[1]
 if "-" in surl:
@@ -141,7 +144,10 @@ for url in urls:
 print("\n")
 with open(directory+"/"+named, "wb") as file:
     for f in files:
-        file.write(open(f, "rb").read().replace(b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x02\x00\x00\x00\x90wS\xde\x00\x00\x00\x0cIDATx\x9cc```\x00\x00\x00\x04\x00\x01\xf6\x178U\x00\x00\x00\x00IEND\xaeB`\x82",b''))
+        if bitzero == '1':
+            file.write(open(f, "rb").read().replace(b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x02\x00\x00\x00\x90wS\xde\x00\x00\x00\x0cIDATx\x9cc```\x00\x00\x00\x04\x00\x01\xf6\x178U\x00\x00\x00\x00IEND\xaeB`\x82",b''))
+        elif bitzero == '2':
+            file.write(base64.b64decode(open(f, "r").read().replace('<!DOCTYPE html>\n<html lang="es">\n<bytes>','').replace('</bytes></html>','')))
         os.unlink(f)
 clear_console()
 print("\033[32mGUARDADO:\033[0m"+directory+"/"+named)
