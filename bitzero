@@ -107,9 +107,15 @@ if not "https://bitzero.techdev.cu/" in url:
     sys.exit()
 print("  \033[1m\033[33m|\033[30m\033[43m + PREPARANDO + \033[0m")
 named = url.split("/")[-1]
-surl = url.split("/")[-3]
-bitzero = url.split("/")[-2]
-k = url.split("/")[-4]
+surl = url.split("/")[-4]
+key = url.split("/")[-2]
+key = key.split("-")
+host = base64.b64decode(key[0].replace("@","==").replace("#","=")).decode("utf-8")
+username = base64.b64decode(key[1].replace("@","==").replace("#","=")).decode("utf-8")
+password = base64.b64decode(key[2].replace("@","==").replace("#","=")).decode("utf-8")
+repo = base64.b64decode(key[3].replace("@","==").replace("#","=")).decode("utf-8")
+bitzero = url.split("/")[-3]
+k = url.split("/")[-5]
 size = k.split("-")[0]
 ide = k.split("-")[1]
 if "-" in surl:
