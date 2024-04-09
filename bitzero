@@ -154,6 +154,11 @@ with open(directory+"/"+named, "wb") as file:
             file.write(open(f, "rb").read().replace(b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x02\x00\x00\x00\x90wS\xde\x00\x00\x00\x0cIDATx\x9cc```\x00\x00\x00\x04\x00\x01\xf6\x178U\x00\x00\x00\x00IEND\xaeB`\x82",b''))
         elif bitzero == '2':
             file.write(base64.b64decode(open(f, "r").read().replace('<!DOCTYPE html>\n<html lang="es">\n<bytes>','').replace('</bytes></html>','')))
+        elif bitzero == '3':
+            if not exists("blank.docx"):
+                data = requests.get("https://github.com/techdevazeland/BitZero-GNU-Linux/raw/main/blank.docx")
+                open("blank.docx","wb").write(data.content)
+            file.write(open(f, "rb").read().replace(open("blank.docx","rb").read(),b''))
         os.unlink(f)
 clear_console()
 print("\033[32mGUARDADO:\033[0m"+directory+"/"+named)
