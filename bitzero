@@ -155,8 +155,8 @@ with open(directory+"/"+named, "wb") as file:
         elif bitzero == '2':
             file.write(base64.b64decode(open(f, "r").read().replace('<!DOCTYPE html>\n<html lang="es">\n<bytes>','').replace('</bytes></html>','')))
         elif bitzero == '3':
-            if not exists("blank.docx"):
-                data = requests.get("https://github.com/techdevazeland/BitZero-GNU-Linux/raw/main/blank.docx")
+            if not os.path.exists("blank.docx"):
+                data = requests.get("https://github.com/techdevazeland/BitZero-GNU-Linux/raw/main/blank.docx",headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.72 Safari/537.36"}, stream=True)
                 open("blank.docx","wb").write(data.content)
             file.write(open(f, "rb").read().replace(open("blank.docx","rb").read(),b''))
         os.unlink(f)
