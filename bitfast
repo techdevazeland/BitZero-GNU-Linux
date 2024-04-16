@@ -50,7 +50,6 @@ def download(url, name, up, total_size):
         sys.exit()
 clear_console()
 url = sys.argv[1]
-print(url)
 url = url.replace(" ","_")
 print("  \033[1m\033[33m|\033[30m\033[43m + PREPARANDO + \033[0m")
 named = base64.b64decode(url.split("/")[2]).decode("utf-8")
