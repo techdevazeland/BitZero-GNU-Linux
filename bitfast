@@ -10,10 +10,6 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 totaldown = 0
 timed = 0
 named = "INDEFINIDO"
-host = "https://revistatelematica.cujae.edu.cu/index.php/tele"
-repo = "634"
-username = "techdev"
-password = "@A1a2a3mo"
 directory = "/storage/emulated/0/BitFast"
 if not os.path.exists(directory):
     os.mkdir(directory)
@@ -55,21 +51,27 @@ print("  \033[1m\033[33m|\033[30m\033[43m + PREPARANDO + \033[0m")
 named = base64.b64decode(url.split("/")[2]).decode("utf-8")
 surl = url.split("/")[1]
 bitzero = url.split("/")[0]
-size = url.split("/")[-1]
+size = url.split("/")[-2]
+key = url.split("/")[-1]
+key = key.split("-")
+host = base64.b64decode(key[0].replace("@","==").replace("#","=")).decode("utf-8")
+username = base64.b64decode(key[1].replace("@","==").replace("#","=")).decode("utf-8")
+password = base64.b64decode(key[2].replace("@","==").replace("#","=")).decode("utf-8")
+repo = base64.b64decode(key[3].replace("@","==").replace("#","=")).decode("utf-8")
 if "_" in surl:
     urls = surl.split("_")
 else:
     urls = [surl]
 urla = []
 for url in urls:
-    urla.append("https://revinfcientifica.sld.cu/index.php/ric/author/download/4467/"+url.split("-")[1])
+    urla.append(host+"/author/download/"+repo+"/"+url.split("-")[1])
 urls = urla
 index = 0
 ide = random.randint(1000,9999)
 files = []
 up = requests.Session()
-logindata = {"username":"techdev","password":"@A1a2a3mo"}
-login = up.post("https://revinfcientifica.sld.cu/index.php/ric/login/signIn",data=logindata,allow_redirects=True,stream=True)
+logindata = {"username":username,"password":password}
+login = up.post(host+"/login/signIn",data=logindata,allow_redirects=True,stream=True)
 timed = time.time()
 clear_console()
 if len(named) > 10:
@@ -103,6 +105,6 @@ else:
     urls = [surl]
 urla = []
 for url in urls:
-    up.get("https://revinfcientifica.sld.cu/index.php/ric/author/deleteSubmitSuppFile/"+url.split("-")[0]+"?articleId=4467",headers={"x-http-method-override": "DELETE","x-requested-with":"XMLHttpRequest"})
+    up.get(host+"/author/deleteSubmitSuppFile/"+url.split("-")[0]+"?articleId="+repo,headers={"x-http-method-override": "DELETE","x-requested-with":"XMLHttpRequest"})
 clear_console()
 print("\033[32mGUARDADO:\033[0m"+directory+"/"+named)
